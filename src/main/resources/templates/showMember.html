@@ -2,10 +2,25 @@
 <html xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <title>[[${title}]]</title>
+    <style>
+        td {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
     <h1>회원 정보</h1>
+    <!-- 완료 메시지 출력 할 영역 -->
+    <!-- model에서 보낸 message가 비어있지 않으면 -->
+    <div th:if="${message}">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            [[  ${message} ]]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
     <table border="1">
         <thead>
             <tr>
@@ -29,7 +44,8 @@
                     </form>
                 </td>
                 <td>
-                    <form>
+                    <form th:action="@{/member/delete}" method="post">
+                        <input type="hidden" name="deleteId" th:field="*{deleteId}">
                         <input type="submit" value="삭제">
                     </form>
                 </td>
@@ -37,7 +53,7 @@
         </tbody>
     </table>
     <br>
-    <form>
+    <form th:action="@{/member/insertForm}" method="get">
         <input type="submit" value="신규회원 입력">
     </form>
     <br>
