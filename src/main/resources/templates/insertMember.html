@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 등록</title>
+</head>
+<body>
+    <h1>회원 등록</h1>
+    <form>
+        <div>
+            <label>이름</label>
+            <input type="text">
+        </div>
+        <div>
+            <label>나이</label>
+            <input type="number" min="0" max="120">
+        </div>
+        <div>
+            <label>주소</label>
+            <input type="text">
+        </div>
+        <input type="submit" value="등록">
+    </form>
+    <a th:href="@{/member/view}">목록으로 돌아가기</a>
+</body>
+</html>
