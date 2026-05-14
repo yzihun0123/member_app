@@ -39,13 +39,14 @@
                 <td th:text="*{age}">20</td>
                 <td th:text="*{address}">서울</td>
                 <td>
-                    <form>
+                    <form th:action="@{/member/update}" method="get">
+                        <input type="hidden" name="updateId" th:value="*{id}">
                         <input type="submit" value="수정">
                     </form>
                 </td>
                 <td>
                     <form th:action="@{/member/delete}" method="post">
-                        <input type="hidden" name="deleteId" th:field="*{deleteId}">
+                        <input type="hidden" name="deleteId" th:value="*{id}">
                         <input type="submit" value="삭제">
                     </form>
                 </td>

@@ -56,4 +56,33 @@ public class MemberController {
                 "정상적으로 삭제되었습니다.");
         return "redirect:/member/view";
     }
+
+    @GetMapping("update")
+    public String updateFormView(@RequestParam("updateId")long updateId,
+                                 RedirectAttributes redirectAttributes, Model model){
+        // 1. 선택한 id를 가져오는지 확인
+        log.info("=====   updateID = " +updateId);
+        // 2. 해당 id를 검색해서 dto로 받아온다.
+        MemberDto memberDto = memberService.findById(updateId);
+        if (memberDto == null) {
+            // 3. 모델에 담아서 updateForm 에 보낸다.
+            redirectAttributes.addFlashAttribute("message",
+                    "수정되지 않았습니다.");
+            return "redirect:/member/view";
+        }
+        model.addAttribute("member", memberDto);
+        return "updateMember";
+    }
+
+    // update > post (업데이트 내용을 DB에 저장하는 작업)
+    @PostMapping("/update")
+    public String update(@ModelAttribute("dto")MemberDto dto,
+                         RedirectAttributes redirectAttributes){
+        // 찍어보기
+        log.info("updateDto : " + dto);
+        memberService.insert(dto);
+        redirectAttributes.addFlashAttribute("message",
+                "정상적으로 수정되었습니다");
+        return "redirect:/member/view";
+    }
 }
