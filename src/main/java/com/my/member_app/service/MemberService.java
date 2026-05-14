@@ -31,11 +31,25 @@ public class MemberService {
         List<Member> members = memberRepository.findAll();
         // Entity List -> Dto List로 변환한 후 리턴한다.
         // 깡통 Dto 리스트 만들기
-        List<MemberDto> dtoList = new ArrayList<>();
-        for (Member member : members) {
-            dtoList.add(MemberDto.toDto(member));
-        }
-        return dtoList;
+//        List<MemberDto> dtoList = new ArrayList<>();
+//        for (Member member : members) {
+//            dtoList.add(MemberDto.toDto(member));
+//        }
+//        return dtoList;
+        // 2. 스트림을 이용해서 처리
+        return members
+                .stream()
+                .map(x -> MemberDto.toDto(x))
+                .toList();
     }
 
+    public void insert(MemberDto dto) {
+        // Dto -> Member 변환
+        Member member = MemberDto.toEntity(dto);
+        memberRepository.save(member);
+    }
+
+    public void delete(Long deleteId) {
+        memberRepository.deleteById(deleteId);
+    }
 }

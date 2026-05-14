@@ -6,18 +6,18 @@
 </head>
 <body>
     <h1>회원 등록</h1>
-    <form>
+    <form th:action="@{/member/insert}" method="post" th:object="${dto}">
         <div>
             <label>이름</label>
-            <input type="text">
+            <input type="text" th:field="*{name}">
         </div>
         <div>
             <label>나이</label>
-            <input type="number" min="0" max="120">
+            <input type="number" min="0" max="120" th:field="*{age}">
         </div>
         <div>
             <label>주소</label>
-            <input type="text">
+            <input type="text" th:field="*{address}">
         </div>
         <input type="submit" value="등록">
     </form>
