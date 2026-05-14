@@ -61,4 +61,25 @@ public class MemberService {
             return MemberDto.toDto(member.get());
         } else return null;
     }
+
+    // 검색 서비스 만들기
+    // type : 이름 / 주소, keyword : 검색어
+    public List<MemberDto> search(String type, String keyword){
+        List<Member> searchList = new ArrayList<>();
+        switch (type) {
+            case "name" :
+                searchList = memberRepository.searchByName(keyword);
+                break;
+            case "address" :
+                searchList = memberRepository.searchByAddress(keyword);
+                break;
+            default:
+                searchList = memberRepository.findAll();
+                break;
+        }
+        return searchList
+                .stream()
+                .map(x-> MemberDto.toDto(x))
+                .toList();
+    }
 }
